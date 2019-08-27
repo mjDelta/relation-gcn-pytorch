@@ -92,10 +92,10 @@ for e in range(epochs):
 	val_accs.append(val_acc)
 
 	if best_loss>val_losses[-1]+0.01:
-		# torch.save({
-		# 	"model":model.state_dict(),
-		# 	"optimizer":optimizer.state_dict()
-		# 	},os.path.join(saved_models,"model_{}.tar".format(e)))
+		torch.save({
+			"model":model.state_dict(),
+			"optimizer":optimizer.state_dict()
+			},os.path.join(saved_models,"model_{}.tar".format(e)))
 		best_loss=val_losses[-1]
 		print("UPDATE\tEpoch {}: train loss {}\tval loss {}\tval acc{}".format(e,train_losses[-1],val_losses[-1],val_accs[-1]))
 		no_update_cnter=0
