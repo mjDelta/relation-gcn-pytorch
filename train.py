@@ -37,7 +37,7 @@ A,y,train_idx,test_idx=load_data_pkl(pkl_path)
 y=y.todense()
 
 saved_models="E:/relationalGCNDatasets/saved_models_aifb";mkdirs(saved_models)
-epochs=5000
+epochs=50
 hidden_dim=50
 drop_prob=0.
 lr=0.01
@@ -51,8 +51,6 @@ for a in A:
 	if len(nor_a.nonzero()[0])>0:
 		tensor_a=to_sparse_tensor(nor_a)
 		tensor_A.append(tensor_a.to(device))
-
-
 tensor_x=None
 
 model=RGCN(vertex_features_dim,hidden_dim,drop_prob,len(tensor_A),40)
@@ -69,7 +67,7 @@ no_update_cnter=0
 for e in range(epochs):
 	if no_update_cnter>=10:
 		lr*=0.1
-		# adjust_learning_rate(optimizer,lr)
+		adjust_learning_rate(optimizer,lr)
 		no_update_cnter=0
 
 	labels=y[train_idx]

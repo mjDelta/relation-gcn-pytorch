@@ -26,6 +26,7 @@ class RGCLayer(Module):
 		else:
 			self.W=Parameter(torch.empty(input_dim*self.supprot,h_dim,dtype=torch.float32,device=device))
 		self.B=Parameter(torch.FloatTensor(h_dim))
+		self.reset_parameters()
 	def reset_parameters(self):
 		nn.init.xavier_uniform_(self.W)
 		if self.num_base>0:
