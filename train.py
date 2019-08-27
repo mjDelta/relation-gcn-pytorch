@@ -32,13 +32,13 @@ def to_sparse_tensor(sparse_array):
 USE_CUDA=torch.cuda.is_available()
 device=torch.device("cuda" if USE_CUDA else "cpu")
 
-pkl_path="E:/relationalGCNDatasets/aifb/aifb.pickle"
+pkl_path="aifb/aifb.pickle"
 A,y,train_idx,test_idx=load_data_pkl(pkl_path)
 y=y.todense()
 
-saved_models="E:/relationalGCNDatasets/saved_models_aifb";mkdirs(saved_models)
+saved_models="saved_models_aifb";mkdirs(saved_models)
 epochs=50
-hidden_dim=50
+hidden_dim=16
 drop_prob=0.
 lr=0.01
 weight_decay=0
@@ -92,10 +92,10 @@ for e in range(epochs):
 	val_accs.append(val_acc)
 
 	if best_loss>val_losses[-1]+0.01:
-		torch.save({
-			"model":model.state_dict(),
-			"optimizer":optimizer.state_dict()
-			},os.path.join(saved_models,"model_{}.tar".format(e)))
+		# torch.save({
+		# 	"model":model.state_dict(),
+		# 	"optimizer":optimizer.state_dict()
+		# 	},os.path.join(saved_models,"model_{}.tar".format(e)))
 		best_loss=val_losses[-1]
 		print("UPDATE\tEpoch {}: train loss {}\tval loss {}\tval acc{}".format(e,train_losses[-1],val_losses[-1],val_accs[-1]))
 		no_update_cnter=0
